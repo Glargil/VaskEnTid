@@ -8,5 +8,14 @@ namespace VaskEnTidLibrary.Models.Machines
 {
     public class Machine
     {
+        public int MachineID { get; set; }
+        public string Type { get; set; }
+        public Machine (int machineID, string type)
+        {
+            MachineID = machineID;
+            Type = type;
+        }
+        public Machine () { }
     }
+
 }
