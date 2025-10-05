@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaskEnTidLibrary.Models;
+using Microsoft.Data.SqlClient;
+using VaskEnTidLibrary.Interfaces;
 
 namespace VaskEnTidLibrary.Repos
 {
-    public class TenantRepo
+    public class TenantRepo : ITenantRepo
     {
         private string _connectionString;
         public TenantRepo(string connectionString)
@@ -48,7 +51,6 @@ namespace VaskEnTidLibrary.Repos
             }
             return tenants;
         }
-
         #endregion
     }
 }

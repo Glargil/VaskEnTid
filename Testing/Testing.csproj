@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VaskEnTidLibrary\VaskEnTidLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="VaskEnTidLibrary">
       <HintPath>..\VaskEnTidLibrary\bin\Debug\net8.0\VaskEnTidLibrary.dll</HintPath>
     </Reference>

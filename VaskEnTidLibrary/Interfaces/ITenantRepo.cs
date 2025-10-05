@@ -7,7 +7,7 @@ using VaskEnTidLibrary.Models;
 
 namespace VaskEnTidLibrary.Interfaces
 {
-    internal interface ITenantRepo
+    public interface ITenantRepo
     {
         List<Tenant> GetAllTenants();
     }
