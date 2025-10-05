@@ -9,6 +9,11 @@ namespace VaskEnTidLibrary.Interfaces
 {
     public interface IMachineRepo
     {
-        public List<Machine> GetAllMachines();
+        List<Machine> GetAllMachines();
+        Machine GetMachineById(int id);
+        void AddMachine(Machine machine);
+        void UpdateMachine(Machine machine);
+        void DeleteMachine(int machineId);
+
     }
 }
