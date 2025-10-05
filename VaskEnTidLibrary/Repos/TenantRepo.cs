@@ -6,7 +6,49 @@ using System.Threading.Tasks;
 
 namespace VaskEnTidLibrary.Repos
 {
-    internal class TenantRepo
+    public class TenantRepo
     {
+        private string _connectionString;
+        public TenantRepo(string connectionString)
+        {
+            _connectionString = "Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;";
+        }
+
+        #region GetAllTenants
+        // Method to get all tenants from the database
+        public List<Models.Tenant> GetAllTenants()
+        {
+            var tenants = new List<Models.Tenant>();
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(_connectionString))
+            {
+                var command = new Microsoft.Data.SqlClient.SqlCommand("SELECT TenantID, Phone, Email, Address FROM Tenant", connection);
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tenant = new Models.Tenant
+                        {
+                            TenantID = (int)reader["TenantID"],
+                            Phone = (string)reader["Phone"],
+                            Email = (string)reader["Email"],
+                            Address = (string)reader["Address"]
+                        };
+                        tenants.Add(tenant); // <-- Add to list
+                    }
+                }
+                connection.Close();
+            }
+            //Debug output to verify data
+            foreach (var tenant in tenants)
+            {
+                Console.WriteLine(
+                    $"Id: {tenant.TenantID}, Phone: {tenant.Phone}, Email: {tenant.Email}, Address: {tenant.Address}"
+                    );
+            }
+            return tenants;
+        }
+
+        #endregion
     }
 }

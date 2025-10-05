@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaskEnTidLibrary.Models;
 
 namespace VaskEnTidLibrary.Interfaces
 {
     internal interface ITenantRepo
     {
+        List<Tenant> GetAllTenants();
     }
 }
