@@ -31,7 +31,7 @@ namespace VaskEnTidLibrary.Repos
                         var machine = new Machine
                         {
                             MachineID = (int)reader["MachineID"],
-                            Type = (string)reader["Type"]
+                            Type = Enum.Parse<Machine.MachineType>(reader["Type"].ToString())
                         };
                         machines.Add(machine); // <-- Add to list
                     }
@@ -64,7 +64,7 @@ namespace VaskEnTidLibrary.Repos
                         machine = new Machine
                         {
                             MachineID = (int)reader["MachineID"],
-                            Type = (string)reader["Type"]
+                            Type = Enum.Parse<Machine.MachineType>(reader["Type"].ToString())
                         };
                     }
                 }

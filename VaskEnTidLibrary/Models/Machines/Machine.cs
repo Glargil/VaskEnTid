@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace VaskEnTidLibrary.Models.Machines
 {
-    public abstract class Machine
+    public class Machine
     {
+        public enum MachineType { Dryer, Roller, Washer }
         public int MachineID { get; set; }
-        public string Type { get; set; }
-        public Machine (int machineID, string type)
+        public MachineType Type { get; set; }
+        public Machine(int machineID, MachineType type)
         {
             MachineID = machineID;
             Type = type;

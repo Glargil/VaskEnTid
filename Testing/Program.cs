@@ -35,11 +35,28 @@ namespace Testing
 
             BookingRepo.CreateBooking(new Booking
             {
+<<<<<<< HEAD
                 TenantID = 1,
                 MachineID = 1,
                 BookingDate = DateTime.Now,
                 StartSlot = Booking.LaundrySlot.Slot06
             });
+=======
+                Console.WriteLine($"Id: {machine.MachineID}, Setup: {machine.Type}");
+            }
+            MachineRepo.GetMachineById(1);
+            MachineRepo.UpdateMachine(new Machine(1, Machine.MachineType.Washer));
+            #endregion
+            #region TestTenants
+            List<Tenant> tenants = TenantRepo.GetAllTenants();
+            foreach (var tenant in tenants)
+            {
+                Console.WriteLine(
+                    $"Id: {tenant.TenantID}, Phone: {tenant.Phone}, Email: {tenant.Email}, Address: {tenant.Address}"
+                    );
+            }
+            #endregion
+>>>>>>> origin/master
         }
     }
 }
