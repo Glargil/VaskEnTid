@@ -35,8 +35,8 @@ namespace VaskEnTidLibrary.Repos
                             BookingID = (int)reader["BookingID"],
                             TenantID = (int)reader["TenantID"],
                             MachineID = (int)reader["MachineID"],
-                            StartTime = (DateTime)reader["StartTime"],
-                            EndTime = (DateTime)reader["EndTime"]
+                            BookingDate = ((DateTime)reader["StartTime"]).Date,
+                            StartSlot = (Booking.LaundrySlot)((DateTime)reader["StartTime"]).Hour
                         };
                         bookings.Add(booking); // <-- Add to list
                     }
@@ -64,8 +64,8 @@ namespace VaskEnTidLibrary.Repos
                             BookingID = (int)reader["BookingID"],
                             TenantID = (int)reader["TenantID"],
                             MachineID = (int)reader["MachineID"],
-                            StartTime = (DateTime)reader["StartTime"],
-                            EndTime = (DateTime)reader["EndTime"]
+                            BookingDate = ((DateTime)reader["StartTime"]).Date,
+                            StartSlot = (Booking.LaundrySlot)((DateTime)reader["StartTime"]).Hour
                         };
                     }
                 }
