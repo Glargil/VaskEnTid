@@ -10,5 +10,8 @@ namespace VaskEnTidLibrary.Interfaces
     public interface ITenantRepo
     {
         List<Tenant> GetAllTenants();
+        void AddTenant(Tenant tenant);
+        void DeleteTenant(int tenantId);
+        void UpdateTenant(Tenant tenant);
     }
 }

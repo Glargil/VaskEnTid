@@ -30,6 +30,16 @@ namespace Testing
                     $"Id: {tenant.TenantID}, Phone: {tenant.Phone}, Email: {tenant.Email}, Address: {tenant.Address}"
                     );
             }
+            TenantRepo.DeleteTenant(13);
+            TenantRepo.DeleteTenant(14);
+            TenantRepo.DeleteTenant(15);
+            //TenantRepo.AddTenant(new Tenant("Børge Bassemand2", "69696969", "2Børgespølsefabrik@yahoo.com", "Børgevej 629"));
+            foreach (var tenant in tenants)
+            {
+                Console.WriteLine(
+                    $"Id: {tenant.TenantID}, Phone: {tenant.Phone}, Email: {tenant.Email}, Address: {tenant.Address}"
+                    );
+            }
             #endregion
         }
     }

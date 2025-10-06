@@ -11,14 +11,15 @@ namespace VaskEnTidLibrary.Models
     {
         //properties of the tenant
         public int TenantID { get; set; }
+        public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
 
         //constructor to initialize a tenant object
-        public Tenant(int tenantID, string phone, string email, string address)
+        public Tenant(string name, string phone, string email, string address)
         {
-            TenantID = tenantID;
+            Name = name;
             Phone = phone;
             Email = email;
             Address = address;

@@ -17,6 +17,23 @@ namespace VaskEnTidLibrary.Repos
             _connectionString = "Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;";
         }
 
+        #region AddTenant
+        public void AddTenant(Tenant tenant)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand("INSERT INTO Tenant (Name, Phone, Email, Address) VALUES (@Name, @Phone, @Email, @Address)", connection);
+                command.Parameters.AddWithValue("@TenantID", tenant.TenantID);
+                command.Parameters.AddWithValue("@Name", tenant.Name);
+                command.Parameters.AddWithValue("@Phone", tenant.Phone);
+                command.Parameters.AddWithValue("@Email", tenant.Email);
+                command.Parameters.AddWithValue("@Address", tenant.Address);
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        #endregion
         #region GetAllTenants
         // Method to get all tenants from the database
         public List<Models.Tenant> GetAllTenants()
@@ -50,6 +67,36 @@ namespace VaskEnTidLibrary.Repos
                     );
             }
             return tenants;
+        }
+        #endregion
+        #region UpdateTenant
+        public void UpdateTenant(Tenant tenant)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand("UPDATE Tenant SET Name = @Name, Phone = @Phone, Email = @Email, Address = Address", connection);
+                command.Parameters.AddWithValue("@TenantID", tenant.TenantID);
+                command.Parameters.AddWithValue("@Name", tenant.Name);
+                command.Parameters.AddWithValue("@Phone", tenant.Phone);
+                command.Parameters.AddWithValue("@Email", tenant.Email);
+                command.Parameters.AddWithValue("@Address", tenant.Address);
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        #endregion
+        #region DeleteTenant
+        public void DeleteTenant(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand("DELETE FROM Tenant WHERE TenantID = @TenantID", connection);
+                command.Parameters.AddWithValue("@TenantID", id);
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
         }
         #endregion
     }
