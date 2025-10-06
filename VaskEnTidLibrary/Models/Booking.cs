@@ -13,15 +13,13 @@ namespace VaskEnTidLibrary.Models
         public int MachineID { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string Status { get; set; }
-        public Booking(int bookingID, int tenantID, int machineID, DateTime startTime, DateTime endTime, string status)
+        public Booking(int bookingID, int tenantID, int machineID, DateTime startTime, DateTime endTime)
         {
             BookingID = bookingID;
             TenantID = tenantID;
             MachineID = machineID;
             StartTime = startTime;
             EndTime = endTime;
-            Status = status;
         }
         public Booking() { }
     }
