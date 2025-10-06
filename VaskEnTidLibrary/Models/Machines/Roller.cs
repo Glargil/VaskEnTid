@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace VaskEnTidLibrary.Models.Machines
 {
-    public class Roller
+    public class Roller : Machine
     {
+        public Roller(int machineID, string type):base(machineID, type)
+        {
+            MachineID = machineID;
+            Type = type;
+        }
+        public Roller() { }
     }
 }

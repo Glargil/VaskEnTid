@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VaskEnTidLibrary.Models.Machines
 {
-    public class Machine
+    public abstract class Machine
     {
         public int MachineID { get; set; }
         public string Type { get; set; }
