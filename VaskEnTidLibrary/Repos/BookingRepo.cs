@@ -79,11 +79,11 @@ namespace VaskEnTidLibrary.Repos
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartTime, EndTime) VALUES (@TenantID, @MachineID, @StartTime, @EndTime)", connection);
+                var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
                 command.Parameters.AddWithValue("@TenantID", booking.TenantID);
                 command.Parameters.AddWithValue("@MachineID", booking.MachineID);
-                command.Parameters.AddWithValue("@StartTime", booking.StartTime);
-                command.Parameters.AddWithValue("@EndTime", booking.EndTime);
+                command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
+                command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();
@@ -95,12 +95,11 @@ namespace VaskEnTidLibrary.Repos
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("UPDATE Booking SET TenantID = @TenantID, MachineID = @MachineID, StartTime = @StartTime, EndTime = @EndTime WHERE BookingID = @BookingID", connection);
-                command.Parameters.AddWithValue("@BookingID", booking.BookingID);
+                var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
                 command.Parameters.AddWithValue("@TenantID", booking.TenantID);
                 command.Parameters.AddWithValue("@MachineID", booking.MachineID);
-                command.Parameters.AddWithValue("@StartTime", booking.StartTime);
-                command.Parameters.AddWithValue("@EndTime", booking.EndTime);
+                command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
+                command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();
