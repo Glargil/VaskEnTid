@@ -6,6 +6,7 @@ namespace VaskEnTid.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -14,7 +15,7 @@ namespace VaskEnTid.Pages
 
         public void OnGet()
         {
-
+            
         }
     }
 }

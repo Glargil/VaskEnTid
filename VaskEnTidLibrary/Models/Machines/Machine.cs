@@ -8,6 +8,7 @@ namespace VaskEnTidLibrary.Models.Machines
 {
     public class Machine
     {
+        //test
         public enum MachineType { Dryer, Roller, Washer }
         public int MachineID { get; set; }
         public MachineType Type { get; set; }
