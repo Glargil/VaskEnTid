@@ -20,7 +20,7 @@ namespace Testing
                 Console.WriteLine($"Id: {machine.MachineID}, Setup: {machine.Type}");
             }
             MachineRepo.GetMachineById(1);
-            MachineRepo.UpdateMachine(new Machine(1, "Washer"));
+            MachineRepo.UpdateMachine(new Machine(1, Machine.MachineType.Washer));
             #endregion
             #region TestTenants
             List<Tenant> tenants = TenantRepo.GetAllTenants();
