@@ -74,7 +74,7 @@ namespace VaskEnTidLibrary.Repos
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("UPDATE Tenant SET Name = @Name, Phone = @Phone, Email = @Email, Address = Address", connection);
+                var command = new SqlCommand("UPDATE Tenant SET Name = @Name, Phone = @Phone, Email = @Email, Address = Address WHERE TenantID @TenantID", connection);
                 command.Parameters.AddWithValue("@TenantID", tenant.TenantID);
                 command.Parameters.AddWithValue("@Name", tenant.Name);
                 command.Parameters.AddWithValue("@Phone", tenant.Phone);
