@@ -28,11 +28,36 @@ namespace VaskEnTidLibrary.Repos
                 {
                     while (reader.Read())
                     {
-                        var machine = new Machine
+                        Machine machine;
+                        var typeString = reader["Type"].ToString();
+                        var machineType = Enum.Parse<Machine.MachineType>(typeString);
+
+                        switch (machineType)
                         {
-                            MachineID = (int)reader["MachineID"],
-                            Type = Enum.Parse<Machine.MachineType>(reader["Type"].ToString())
-                        };
+                            case Machine.MachineType.Dryer:
+                                machine = new Dryer
+                                {
+                                    MachineID = (int)reader["MachineID"],
+                                    Type = machineType
+                                };
+                                break;
+                            case Machine.MachineType.Roller:
+                                machine = new Roller
+                                {
+                                    MachineID = (int)reader["MachineID"],
+                                    Type = machineType
+                                };
+                                break;
+                            case Machine.MachineType.Washer:
+                                machine = new Washer
+                                {
+                                    MachineID = (int)reader["MachineID"],
+                                    Type = machineType
+                                };
+                                break;
+                            default:
+                                throw new Exception($"Unknown machine type: {typeString}");
+                        }
                         machines.Add(machine); // <-- Add to list
                     }
                 }
@@ -61,20 +86,39 @@ namespace VaskEnTidLibrary.Repos
                 {
                     if (reader.Read())
                     {
-                        machine = new Machine
+                        var typeString = reader["Type"].ToString();
+                        var machineType = Enum.Parse<Machine.MachineType>(typeString);
+                        switch (machineType)
                         {
-                            MachineID = (int)reader["MachineID"],
-                            Type = Enum.Parse<Machine.MachineType>(reader["Type"].ToString())
-                        };
+                            case Machine.MachineType.Dryer:
+                                machine = new Dryer
+                                {
+                                    MachineID = (int)reader["MachineID"],
+                                    Type = machineType
+                                };
+                                break;
+                            case Machine.MachineType.Roller:
+                                machine = new Roller
+                                {
+                                    MachineID = (int)reader["MachineID"],
+                                    Type = machineType
+                                };
+                                break;
+                            case Machine.MachineType.Washer:
+                                machine = new Washer
+                                {
+                                    MachineID = (int)reader["MachineID"],
+                                    Type = machineType
+                                };
+                                break;
+                            default:
+                                throw new Exception($"Unknown machine type: {typeString}");
+                        }
                     }
                 }
                 if (machine == null)
                 {
                     throw new Exception($"Machine with ID {id} not found.");
-                }
-                if (machine != null)
-                {
-                    Console.WriteLine($"Id: {machine.MachineID}, Setup: {machine.Type}");
                 }
                 connection.Close();
                 return machine;
