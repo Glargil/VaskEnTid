@@ -41,7 +41,7 @@ namespace VaskEnTidLibrary.Repos
                         bookings.Add(booking); // <-- Add to list
                     }
                 }
-                connection.Close();)
+                connection.Close();
             }
             return bookings;
         }
