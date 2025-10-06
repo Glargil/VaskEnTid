@@ -8,12 +8,12 @@ namespace VaskEnTidLibrary.Models
 {
     public class Booking
     {
-        int BookingID { get; set; }
-        int TenantID { get; set; }
-        int MachineID { get; set; }
-        DateTime StartTime { get; set; }
-        DateTime EndTime { get; set; }
-        string Status { get; set; }
+        public int BookingID { get; set; }
+        public int TenantID { get; set; }
+        public int MachineID { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string Status { get; set; }
         public Booking(int bookingID, int tenantID, int machineID, DateTime startTime, DateTime endTime, string status)
         {
             BookingID = bookingID;
