@@ -1,54 +1,39 @@
 ﻿@page
-@model IndexModel
+@model VaskEnTid.Pages.IndexModel
 @{
-    ViewData["Title"] = "Vask en tid";
+    ViewData["Title"] = "Hjemmeside";
 }
 
-<head>
-	<link href="~/css/index.css" rel="stylesheet" />
-</head>
-<body id="main-body">
-	<div class="container">
-		<img class="TitleIMG" src="~/media/Vaskemaskiner.jpeg" alt="Vask en tid logo">
-		<p id="typed" class="colored">Book nu, vask senere - undgå at gå forgæves!</p>
-		<div class="jumbotron text-center bg-light p-5 rounded">
-			<h1 id="index_title">Velkommen til Vaskekælderen</h1>
-			<p>Book en tid allerede i dag</p>
-		</div>
-		
-		</div>
-		<div id="adopt-section">
-			<h2>Adopter et dyr</h2>
-			<p>Er du klar til at give et dyr et nyt hjem? <a href="/Userpages/Animals">Se vores dyr til adoption</a>.</p>
-		</div>
-		<!-- Contact Section -->
-		<div class="row mt-5" id="contact-section">
-			<h2 class="text-center w-100">Kontakt Os!</h2>
-			<div class="col-md-6">
-				<p><strong>Adresse:</strong> Islevdalvej 85, 2610 Rødovre, Denmark</p>
-				<p><strong>Telefon:</strong> +45 123 456 789</p>
-				<p><strong>Email:</strong> info@hillerodboats.dk</p>
-			</div>
-			<div class="col-md-6">
-				<form method="post" action="/Contact">
-					<div class="form-group">
-						<label for="name">Navn</label>
-						<input type="text" class="form-control" id="name" name="name" required>
-					</div>
-					<div class="form-group mt-3">
-						<label for="email">Email</label>
-						<input type="email" class="form-control" id="email" name="email" required>
-					</div>
-					<div class="form-group mt-3">
-						<label for="message">Besked</label>
-						<textarea class="form-control" id="message" name="message" rows="3" required></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary mt-3">Send Besked</button>
-				</form>
-			</div>
-		</div>
-	</div>
+<div class="container">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Velkommen til Vaskekælder Bookingsystem</h1>
+            <p>Book tid til vaskemaskiner, tørretumblere og rullemaskiner uden problemer.</p>
+            <a class="button" href="/CreateBooking">Start Booking</a>
+        </div>
+    </section>
 
-	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-	<script src="~/js/site.js"></script>
-</body>
+    <section class="features">
+        <h2>Funktioner</h2>
+        <div class="feature-item">
+            <i class="fas fa-calendar-check"></i>
+            <h3>Nem Booking</h3>
+            <p>Book din tid på få sekunder med vores enkle interface.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-user-friends"></i>
+            <h3>Fælles Adgang</h3>
+            <p>Systemet sikrer, at alle beboere kan tilgå og bruge maskinerne.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-clock"></i>
+            <h3>Fleksible Tider</h3>
+            <p>Vælg mellem flere tidsblokke for at passe til din tidsplan.</p>
+        </div>
+    </section>
+
+    <section class="info">
+        <h3>Information</h3>
+        <p>Her kan du finde information om, hvordan systemet fungerer og hvordan du undgår konflikter ved booking.</p>
+    </section>
+</div>

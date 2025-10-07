@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +17,6 @@ namespace VaskEnTidLibrary.Repos
         {
             _connectionString = "Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;";
         }
-        // Implement methods defined in IBookingRepo interface
         #region GetAllBookings
         public List<Booking> GetAllBookings()
         {
