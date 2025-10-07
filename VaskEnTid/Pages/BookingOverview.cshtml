@@ -6,11 +6,13 @@
 	</head>
 	<body>
 		<div class="container">
-			@foreach (var machine in Model.Machines)
+			@foreach (var booking in Model.Bookings)
 			{
 				<div class="card card-body" style="padding: 1em; margin-bottom: 1em;">
-					<h3 class="card-title">MachineID: @machine.MachineID</h3>
-					<p class="card-text">Type: @machine.Type</p>
+				<a>BOOKING :D</a>
+					<h3 class="card-title">TenantID: @booking.TenantID</h3>
+					<p class="card-text">Date: @booking.BookingDate</p>
+					<p class="card-text">Start time: @booking.StartSlot:00</p>
 				</div>
 			}
 		</div>
