@@ -9,8 +9,8 @@
 			@foreach (var booking in Model.Bookings)
 			{
 				<div class="card card-body" style="padding: 1em; margin-bottom: 1em;">
-				<a>BOOKING :D</a>
-					<h3 class="card-title">TenantID: @booking.TenantID</h3>
+					<h3 class="card-title">BookingID: @booking.BookingID</h3>
+					<p class="card-text">TenantID: @booking.TenantID</p>
 					<p class="card-text">Date: @booking.BookingDate</p>
 					<p class="card-text">Start time: @booking.StartSlot:00</p>
 				</div>
