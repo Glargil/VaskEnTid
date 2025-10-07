@@ -23,13 +23,20 @@ namespace Testing
             MachineRepo.GetMachineById(1);
             #endregion
             #region TestTenants
-            List<Tenant> tenants = TenantRepo.GetAllTenants();
-            foreach (var tenant in tenants)
+            //List<Tenant> tenants = TenantRepo.GetAllTenants();
+            //foreach (var tenant in tenants)
+            //{
+            //    Console.WriteLine(
+            //        $"Id: {tenant.TenantID}, Phone: {tenant.Phone}, Email: {tenant.Email}, Address: {tenant.Address}"
+            //        );
+            //}
+            TenantRepo.AddTenant(new Tenant
             {
-                Console.WriteLine(
-                    $"Id: {tenant.TenantID}, Phone: {tenant.Phone}, Email: {tenant.Email}, Address: {tenant.Address}"
-                    );
-            }
+                Name = "",
+                Phone = "12345678",
+                Email = "",
+                Address = "F01A9"
+                });
             #endregion
 
             //BookingRepo.CreateBooking(new Booking

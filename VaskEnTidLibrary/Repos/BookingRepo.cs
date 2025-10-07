@@ -21,27 +21,45 @@ namespace VaskEnTidLibrary.Repos
         #region GetAllBookings
         public List<Booking> GetAllBookings()
         {
+            SqlConnection connection = null;
+            connection = new SqlConnection(_connectionString);
             var bookings = new List<Booking>();
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                var command = new SqlCommand("SELECT BookingID, TenantID, MachineID, StartTime, EndTime FROM Booking", connection);
-                connection.Open();
-                using (var reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    var command = new SqlCommand("SELECT BookingID, TenantID, MachineID, BookingDate, StartSlot FROM Booking", connection);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
                     {
-                        var booking = new Booking
+                        while (reader.Read())
                         {
-                            BookingID = (int)reader["BookingID"],
-                            TenantID = (int)reader["TenantID"],
-                            MachineID = (int)reader["MachineID"],
-                            BookingDate = ((DateTime)reader["StartTime"]).Date,
-                            StartSlot = (Booking.LaundrySlot)((DateTime)reader["StartTime"]).Hour
-                        };
-                        bookings.Add(booking); // <-- Add to list
+                            var booking = new Booking
+                            {
+                                BookingID = (int)reader["BookingID"],
+                                TenantID = (int)reader["TenantID"],
+                                MachineID = (int)reader["MachineID"],
+                                BookingDate = ((DateTime)reader["BookingDate"]).Date,
+                                StartSlot = (Booking.LaundrySlot)(int)reader["StartSlot"]
+                            };
+                            bookings.Add(booking);
+                        }
                     }
                 }
-                connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("A database error occurred while retrieving all bookings: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all bookings: " + ex.Message, ex);
+            }
+            finally
+            {
+                if (connection != null && connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
             }
             return bookings;
         }
@@ -49,27 +67,45 @@ namespace VaskEnTidLibrary.Repos
         #region GetBookingByID
         public Booking GetBookingByID(int id)
         {
+            SqlConnection connection = null;
+            connection = new SqlConnection(_connectionString);
             Booking booking = null;
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                var command = new SqlCommand("SELECT BookingID, TenantID, MachineID, StartTime, EndTime FROM Booking WHERE BookingID = @BookingID", connection);
-                command.Parameters.AddWithValue("@BookingID", id);
-                connection.Open();
-                using (var reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    var command = new SqlCommand("SELECT BookingID, TenantID, MachineID, StartTime, EndTime FROM Booking WHERE BookingID = @BookingID", connection);
+                    command.Parameters.AddWithValue("@BookingID", id);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
                     {
-                        booking = new Booking
+                        if (reader.Read())
                         {
-                            BookingID = (int)reader["BookingID"],
-                            TenantID = (int)reader["TenantID"],
-                            MachineID = (int)reader["MachineID"],
-                            BookingDate = ((DateTime)reader["StartTime"]).Date,
-                            StartSlot = (Booking.LaundrySlot)((DateTime)reader["StartTime"]).Hour
-                        };
+                            booking = new Booking
+                            {
+                                BookingID = (int)reader["BookingID"],
+                                TenantID = (int)reader["TenantID"],
+                                MachineID = (int)reader["MachineID"],
+                                BookingDate = ((DateTime)reader["StartTime"]).Date,
+                                StartSlot = (Booking.LaundrySlot)((DateTime)reader["StartTime"]).Hour
+                            };
+                        }
                     }
                 }
-                connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"A database error occurred while retrieving booking with ID {id}: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving booking with ID {id}: {ex.Message}", ex);
+            }
+            finally
+            {
+                if (connection != null && connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
             }
             return booking;
         }
@@ -77,45 +113,99 @@ namespace VaskEnTidLibrary.Repos
         #region AddBooking
         public void CreateBooking(Booking booking)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            SqlConnection connection = null;
+            connection = new SqlConnection(_connectionString);
+            try
             {
-                var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
-                command.Parameters.AddWithValue("@TenantID", booking.TenantID);
-                command.Parameters.AddWithValue("@MachineID", booking.MachineID);
-                command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
-                command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                {
+                    var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
+                    command.Parameters.AddWithValue("@TenantID", booking.TenantID);
+                    command.Parameters.AddWithValue("@MachineID", booking.MachineID);
+                    command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
+                    command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("A database error occurred while creating a booking: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating a booking: " + ex.Message, ex);
+            }
+            finally
+            {
+                if (connection != null && connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
             }
         }
         #endregion
         #region UpdateBooking
         public void UpdateBooking(Booking booking)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            SqlConnection connection = null;
+            connection = new SqlConnection(_connectionString);
+            try
             {
-                var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
-                command.Parameters.AddWithValue("@TenantID", booking.TenantID);
-                command.Parameters.AddWithValue("@MachineID", booking.MachineID);
-                command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
-                command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                {
+                    var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
+                    command.Parameters.AddWithValue("@TenantID", booking.TenantID);
+                    command.Parameters.AddWithValue("@MachineID", booking.MachineID);
+                    command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
+                    command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("A database error occurred while updating a booking: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating a booking: " + ex.Message, ex);
+            }
+            finally
+            {
+                if (connection != null && connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
             }
         }
         #endregion
         #region DeleteBooking
         public void DeleteBooking(int id)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            SqlConnection connection = null;
+            connection = new SqlConnection(_connectionString);
+            try
             {
-                var command = new SqlCommand("DELETE FROM Booking WHERE BookingID = @BookingID", connection);
-                command.Parameters.AddWithValue("@BookingID", id);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                {
+                    var command = new SqlCommand("DELETE FROM Booking WHERE BookingID = @BookingID", connection);
+                    command.Parameters.AddWithValue("@BookingID", id);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"A database error occurred while deleting booking with ID {id}: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while deleting booking with ID {id}: {ex.Message}", ex);
+            }
+            finally
+            {
+                if (connection != null && connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
             }
         }
         #endregion
