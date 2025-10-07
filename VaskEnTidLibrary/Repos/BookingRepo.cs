@@ -23,7 +23,7 @@ namespace VaskEnTidLibrary.Repos
             var bookings = new List<Booking>();
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("SELECT BookingID, TenantID, MachineID, StartTime, EndTime FROM Booking", connection);
+                var command = new SqlCommand("SELECT BookingID, TenantID, MachineID, BookingDate, StartSlot FROM Booking", connection);
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
@@ -34,8 +34,8 @@ namespace VaskEnTidLibrary.Repos
                             BookingID = (int)reader["BookingID"],
                             TenantID = (int)reader["TenantID"],
                             MachineID = (int)reader["MachineID"],
-                            BookingDate = ((DateTime)reader["StartTime"]).Date,
-                            StartSlot = (Booking.LaundrySlot)((DateTime)reader["StartTime"]).Hour
+                            BookingDate = ((DateTime)reader["BookingDate"]).Date,
+                            StartSlot = (Booking.LaundrySlot)(int)reader["StartSlot"]
                         };
                         bookings.Add(booking); // <-- Add to list
                     }
