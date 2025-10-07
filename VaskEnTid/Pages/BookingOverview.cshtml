@@ -4,4 +4,15 @@
 	<head>
 		<link href="~/css/index.css" rel="stylesheet" />
 	</head>
+	<body>
+		<div class="container">
+			@foreach (var machine in Model.Machines)
+			{
+				<div class="card card-body" style="padding: 1em; margin-bottom: 1em;">
+					<h3 class="card-title">MachineID: @machine.MachineID</h3>
+					<p class="card-text">Type: @machine.Type</p>
+				</div>
+			}
+		</div>
+	</body>
 }
