@@ -12,6 +12,7 @@ body {
 
 .container {
     flex: 1; /* Gør containeren fleksibel, så den fylder det tilgængelige rum */
+    padding-bottom: 60px; /* Plads til footeren */
 }
 
 header {
@@ -124,4 +125,8 @@ footer {
     text-align: center;
     padding: 20px;
     background-color: #f4f4f4;
+    position: relative; /* Sørg for at footeren er i bunden af containeren */
+    bottom: 0; /* Placer footeren i bunden */
+    left: 0;
+    width: 100%; /* Gør footeren bred nok til at dække hele bredden */
 }
