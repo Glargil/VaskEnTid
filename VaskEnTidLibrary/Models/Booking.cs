@@ -24,6 +24,8 @@ namespace VaskEnTidLibrary.Models
         public int MachineID { get; set; }
         public LaundrySlot StartSlot { get; set; }
         public DateTime BookingDate { get; set; } // Date only
+
+        //What are these used for ??
         public DateTime StartTime => BookingDate.Date.AddHours((int)StartSlot);
         public DateTime EndTime => StartTime.AddHours(2);
 

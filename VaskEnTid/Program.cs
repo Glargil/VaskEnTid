@@ -1,3 +1,6 @@
+using VaskEnTidLibrary.Interfaces;
+using VaskEnTidLibrary.Repos;
+
 namespace VaskEnTid
 {
     public class Program
@@ -8,7 +11,15 @@ namespace VaskEnTid
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<IBookingRepo>(provider =>
+    new BookingRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;"));
 
+            builder.Services.AddScoped<IMachineRepo>(provider =>
+    new MachineRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;"));
+
+            builder.Services.AddScoped<ITenantRepo>(provider =>
+    new TenantRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;"));
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

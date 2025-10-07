@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="VaskEnTidLibrary">
+      <HintPath>..\VaskEnTidLibrary\bin\Debug\net8.0\VaskEnTidLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
