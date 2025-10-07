@@ -12,16 +12,18 @@ body {
 
 .container {
     flex: 1; /* Gør containeren fleksibel, så den fylder det tilgængelige rum */
-    padding-bottom: 60px; /* Plads til footeren */
+    /*padding-bottom: 60px;*/               /* Plads til footeren */
+    /*Ved at bruge padding på alle .container classes tvinger du alle containerere med det klasse navn til at have en padding på 60px*/
 }
 
 header {
-    position: fixed;
+    position: relative; /*fixed position tvinger elementet til at være på en bestemt position - skaber overlap i elementerne*/
     top: 0;
     left: 0;
     width: 100%;
     background-color: #0097a7; /* Blågrøn farve for navbar */
     z-index: 1000;
+    margin-bottom: 1vh
 }
 
 nav {
