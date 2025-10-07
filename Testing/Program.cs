@@ -15,8 +15,6 @@ namespace Testing
             IBookingRepo BookingRepo = new VaskEnTidLibrary.Repos.BookingRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;");
             #endregion
             #region TestMachines
-            MachineRepo.AddMachine(new Washer());
-            MachineRepo.AddMachine(new Roller());
             List<Machine> machines = MachineRepo.GetAllMachines();
             foreach (var machine in machines)
             {
