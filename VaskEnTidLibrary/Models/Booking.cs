@@ -25,10 +25,9 @@ namespace VaskEnTidLibrary.Models
         public LaundrySlot StartSlot { get; set; }
         public DateTime BookingDate { get; set; } // Date only
 
-        //What are these used for ??
+        //These are currently NOT stored in the database
         public DateTime StartTime => BookingDate.Date.AddHours((int)StartSlot);
         public DateTime EndTime => StartTime.AddHours(2);
-
         public Booking(int bookingID, int tenantID, int machineID, LaundrySlot startSlot, DateTime bookingDate)
         {
             BookingID = bookingID;
