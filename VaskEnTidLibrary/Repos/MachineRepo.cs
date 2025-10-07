@@ -10,7 +10,7 @@ using VaskEnTidLibrary.Interfaces;
 namespace VaskEnTidLibrary.Repos
 {
     public class MachineRepo : IMachineRepo
-    {
+    {    
         private string _connectionString;
         public MachineRepo(string connectionString)
         {
@@ -72,7 +72,6 @@ namespace VaskEnTidLibrary.Repos
             return machines;
         }
         #endregion
-
         #region GetMachineById
         public Machine GetMachineById(int id)
         {
@@ -131,7 +130,7 @@ namespace VaskEnTidLibrary.Repos
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand("INSERT INTO Machine (Type) VALUES (@Type)", connection);
-                command.Parameters.AddWithValue("@Type", machine.Type);
+                command.Parameters.AddWithValue("@Type", machine.Type.ToString());
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();
@@ -144,7 +143,7 @@ namespace VaskEnTidLibrary.Repos
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand("UPDATE Machine SET Type = @Type WHERE MachineID = @MachineID", connection);
-                command.Parameters.AddWithValue("@Type", machine.Type);
+                command.Parameters.AddWithValue("@Type", machine.Type.ToString());
                 command.Parameters.AddWithValue("@MachineID", machine.MachineID);
                 connection.Open();
                 var rowsAffected = command.ExecuteNonQuery();
