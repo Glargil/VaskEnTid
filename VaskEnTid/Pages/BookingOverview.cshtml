@@ -21,6 +21,10 @@
 					<p class="card-text">TenantID: @booking.TenantID</p>
 					<p class="card-text">Date: @booking.BookingDate</p>
 					<p class="card-text">Start time: @booking.StartSlot:00</p>
+					<form method="post" asp-page-handler="Delete">
+						<input type="hidden" name="bookingId" value="@booking.BookingID" />
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
 				</div>
 			}
 		</div>
