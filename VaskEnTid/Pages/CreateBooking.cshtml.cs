@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VaskEnTidLibrary.Interfaces;
 using VaskEnTidLibrary.Models;
 using VaskEnTidLibrary.Repos;
@@ -9,31 +9,83 @@ namespace VaskEnTid.Pages
 {
     public class CreateBookingModel : PageModel
     {
-        public DateTime BookingStart { get; set; }
-        public DateTime BookingEnd { get; set; }
         [BindProperty]
-        public DateTime _sDT { get; set; }
-        [BindProperty]
-        public DateTime _eDT { get; set; }
-        [BindProperty]
-        public required string _machineType { get; set; }
-        public List<Booking> Bookings { get; private set; }
+        public DateTime SelectedDate { get; set; } = DateTime.Today;
 
-        private readonly ILogger<BookingOverviewModel> _logger;
-        private static IBookingRepo _bookingRepo = new BookingRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;");
+        [BindProperty]
+        public int SelectedMachineId { get; set; }
+
+        [BindProperty]
+        public int SelectedTenantId { get; set; }
+
+        [BindProperty]
+        public int SelectedAvailableSlot { get; set; }
+
+        public List<SelectListItem> Machines { get; set; } = new();
+        public List<SelectListItem> Tenants { get; set; } = new();
+        public List<SelectListItem> AllSlots { get; set; } = new();
+        public List<SelectListItem> AvailableSlots { get; set; } = new();
+        public List<Booking> Bookings { get; private set; } = new();
+
+        private readonly IBookingRepo _bookingRepo = new BookingRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;");
+        private readonly IMachineRepo _machineRepo = new MachineRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;");
+        private readonly ITenantRepo _tenantRepo = new TenantRepo("Server=mssql.mkhansen.dk,1436;Database=Laundromat;User Id=sa;Password=Laundromat25;Encrypt=true;TrustServerCertificate=True;");
+
         public void OnGet()
         {
+            LoadDropdowns();
         }
 
-        public void CreateBooking(Booking booking)
+        public IActionResult OnPost()
         {
-            _bookingRepo.CreateBooking(booking);
-            _logger.LogInformation("CreateBooking!");
+            try
+            {
+                var booking = new Booking
+                {
+                    MachineID = SelectedMachineId,
+                    TenantID = SelectedTenantId,
+                    BookingDate = SelectedDate.Date,
+                    StartSlot = (Booking.LaundrySlot)SelectedAvailableSlot
+                };
+                _bookingRepo.CreateBooking(booking);
+                TempData["BookingSuccess"] = "Din booking er oprettet!";
+            }
+            catch (Exception ex)
+            {
+                TempData["BookingError"] = "Kunne ikke oprette booking: " + ex.Message;
+            }
+
+            LoadDropdowns();
+            return Page();
         }
-        public IActionResult OnPostDelete(int bookingId)
+
+        private void LoadDropdowns()
         {
-            _bookingRepo.DeleteBooking(bookingId);
-            return RedirectToPage();
+            Machines = _machineRepo.GetAllMachines()
+                .Select(m => new SelectListItem { Value = m.MachineID.ToString(), Text = $"{m.MachineID} - {m.Type}" })
+                .ToList();
+
+            Tenants = _tenantRepo.GetAllTenants()
+                .Select(t => new SelectListItem { Value = t.TenantID.ToString(), Text = t.Name })
+                .ToList();
+
+            AllSlots = Enum.GetValues(typeof(Booking.LaundrySlot))
+                .Cast<Booking.LaundrySlot>()
+                .Select(slot => new SelectListItem
+                {
+                    Value = ((int)slot).ToString(),
+                    Text = $"{(int)slot:00}:00 - {((int)slot + 2):00}:00"
+                }).ToList();
+
+            Bookings = _bookingRepo.GetAllBookings();
+
+            AvailableSlots = AllSlots.Where(slot =>
+                !Bookings.Any(b =>
+                    b.MachineID == SelectedMachineId &&
+                    b.BookingDate == SelectedDate.Date &&
+                    (int)b.StartSlot == int.Parse(slot.Value)
+                )
+            ).ToList();
         }
     }
 }

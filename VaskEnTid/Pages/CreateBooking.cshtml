@@ -1,80 +1,51 @@
 ﻿@page
 @model VaskEnTid.Pages.CreateBookingModel
-@{
-}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<body>
-    <container-sm>
-        <div class="text-center">
-            <h1>Opret Booking</h1>
+<div class="card-body text-center">
+    <form method="post">
+        <div class="form-group">
+            <label for="SelectedTenantId">Vælg Beboer:</label>
+            <select asp-for="SelectedTenantId" asp-items="Model.Tenants" class="form-control" id="SelectedTenantId"></select>
         </div>
-
-        <div class="card shadow-sm">
-            <div class="card-body text-center">
-                <form method="post">
-                    <div class="form-group container-fluid">
-                        <label for="inputDateTime">Startid: </label>
-                        <input type="datetime-local" asp-for="_sDT" id="BookingStart" aria-describedby="dateTimeHelp" placeholder="Enter Date/Time" step="3600">
-                        <label for="inputDateTime">Sluttid: </label>
-                        <input type="datetime-local" asp-for="_eDT" id="BookingEnd" aria-describedby="dateTimeHelp" placeholder="Enter end time" step="3600" />
-                    </div>
-                    <div class="mt-2">
-                        <label for="inputBoat">Vælg Båd: </label>
-                        <div class="form-group mt-2 d-inline">
-                            <select asp-for="_machineType" id="Boats">
-                                @foreach (var machine in Model.)
-                                {
-                                    <option value="@boat.Name">@boat.Name</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-@*                     <div class="mt-2">
-                        <label for="inputMember">Vælg Medlemmer: </label>
-                        <div class="form-group mt-2 d-inline">
-                            <select asp-for="@Model._user" id="Member">
-                                @foreach (var member in Model.Members)
-                                {
-                                    <option value="@member.Username">@member.Username</option>
-                                }
-                            </select>
-                        </div>
-                    </div> *@
-
-                    <button type="submit" class="btn btn-primary mt-5">Submit</button>
-                </form>
-                </<div>
-                </div>
-            </div>
-            <h2 class="mt-5">Aktive Bookinger</h2>
-            <div class="row row-cols-md-2 row-cols-lg-3">
-
-                @foreach (var booking in Model.Bookings)
-                {
-                    <div class="card shadow-sm mt-3">
-                        <div class="card-body text-start">
-                            <p><strong>@booking.User</strong></p>
-                            <p>Booking ID: @booking.BookingID</p>
-                            <p>Båd: <b>@booking.BoatName</b></p>
-                            <p>fra: @booking.StartDT</p>
-                            <p>til:  @booking.EndDT</p>
-                        </div>
-                    </div>
-                }
+        <div class="form-group">
+            <label for="SelectedMachineId">Vælg Maskine:</label>
+            <select asp-for="SelectedMachineId" asp-items="Model.Machines" class="form-control" id="SelectedMachineId" onchange="this.form.submit()"></select>
+        </div>
+        <div class="form-group">
+            <label for="SelectedDate">Vælg Dato:</label>
+            <input type="date" asp-for="SelectedDate" class="form-control" id="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+        </div>
+        <select asp-for="SelectedAvailableSlot" class="form-control" id="SelectedAvailableSlot">
+            @foreach (var slot in Model.AllSlots)
+            {
+                var isBooked = Model.Bookings.Any(b =>
+                b.MachineID == Model.SelectedMachineId &&
+                b.BookingDate == Model.SelectedDate.Date &&
+                (int)b.StartSlot == int.Parse(slot.Value)
+                );
+                <option value="@slot.Value" disabled="@(isBooked ? "disabled" : null)" style="@(isBooked ? "color:red;" : "")">
+                    @slot.Text @(isBooked ? "(Optaget)" : "")
+                </option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary mt-3">Book</button>
+    </form>
+    @if (TempData["BookingSuccess"] != null)
+    {
+        <div class="toast show bg-success text-white" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;">
+            <div class="toast-body">
+                <i class="fas fa-check-circle"></i> @TempData["BookingSuccess"]
             </div>
         </div>
-    </container-sm>
+    }
+    @if (TempData["BookingError"] != null)
+    {
+        <div class="toast show bg-danger text-white" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;">
+            <div class="toast-body">
+                <i class="fas fa-exclamation-triangle"></i> @TempData["BookingError"]
+            </div>
+        </div>
+    }
 
-
-    <script>
-        //script to set DateTime forms to current time
-               // Get the current date and time
-               const now = new Date().toISOString().slice(0, 16); // Slices to match the datetime-local format
-
-               // Set the value attribute of the input fields
-               document.getElementById('BookingStart').value = now;
-               document.getElementById('BookingEnd').value = now;
-
-    </script>
-
-</body>
+</div>
