@@ -23,5 +23,6 @@ namespace VaskEnTid.Pages
         {
             Bookings = _bookingRepo.GetAllBookings();
         }
+
     }
 }
