@@ -56,6 +56,11 @@ namespace VaskEnTid.Pages
 
             Bookings = filtered.Select(x => x.Booking).ToList();
         }
+        public IActionResult OnPostDelete(int bookingId)
+        {
+            _bookingRepo.DeleteBooking(bookingId);
+            return RedirectToPage(); // Refresh the page after deletion
+        }
 
     }
 }
