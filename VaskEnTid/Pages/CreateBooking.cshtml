@@ -10,11 +10,11 @@
         </div>
         <div class="form-group">
             <label for="SelectedMachineId">Vælg Maskine:</label>
-            <select asp-for="SelectedMachineId" asp-items="Model.Machines" class="form-control" id="SelectedMachineId" onchange="this.form.submit()"></select>
+            <select asp-for="SelectedMachineId" asp-items="Model.Machines" class="form-control" id="SelectedMachineId"></select>
         </div>
         <div class="form-group">
             <label for="SelectedDate">Vælg Dato:</label>
-            <input type="date" asp-for="SelectedDate" class="form-control" id="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+            <input type="date" asp-for="SelectedDate" class="form-control" id="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")"/>
         </div>
         <select asp-for="SelectedAvailableSlot" class="form-control" id="SelectedAvailableSlot">
             @foreach (var slot in Model.AllSlots)
@@ -33,19 +33,34 @@
     </form>
     @if (TempData["BookingSuccess"] != null)
     {
-        <div class="toast show bg-success text-white" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;">
-            <div class="toast-body">
-                <i class="fas fa-check-circle"></i> @TempData["BookingSuccess"]
+        <div class="toast show bg-success text-white position-relative top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" id="bookingToast">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle"></i> @TempData["BookingSuccess"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     }
     @if (TempData["BookingError"] != null)
     {
-        <div class="toast show bg-danger text-white" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;">
-            <div class="toast-body">
-                <i class="fas fa-exclamation-triangle"></i> @TempData["BookingError"]
+        <div class="toast show bg-danger text-white position-relative top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" id="bookingToast">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-exclamation-triangle"></i> @TempData["BookingError"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     }
 
 </div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        var toastEl = document.getElementById('bookingToast');
+        if (toastEl) {
+            var toast = new bootstrap.Toast(toastEl, { delay: 10000 });
+            toast.show();
+        }
+    });
+</script>

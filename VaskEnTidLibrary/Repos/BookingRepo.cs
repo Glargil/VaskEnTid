@@ -117,11 +117,11 @@ namespace VaskEnTidLibrary.Repos
             try
             {
                 {
-                    var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, StartSlot, BookingDate) VALUES (@TenantID, @MachineID, @StartSlot, @BookingDate)", connection);
+                    var command = new SqlCommand("INSERT INTO Booking (TenantID, MachineID, BookingDate ,StartSlot) VALUES (@TenantID, @MachineID, @BookingDate, @StartSlot)", connection);
                     command.Parameters.AddWithValue("@TenantID", booking.TenantID);
                     command.Parameters.AddWithValue("@MachineID", booking.MachineID);
-                    command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
                     command.Parameters.AddWithValue("@BookingDate", booking.BookingDate);
+                    command.Parameters.AddWithValue("@StartSlot", booking.StartSlot);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }

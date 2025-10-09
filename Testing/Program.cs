@@ -37,6 +37,13 @@ namespace Testing
                 Address = "F01A9"
                 });
             #endregion
+            BookingRepo.CreateBooking(new Booking
+            {
+                TenantID = 7,
+                MachineID = 3,
+                BookingDate = DateTime.Today,
+                StartSlot = Booking.LaundrySlot.Slot18
+            });
         }
     }
 }
