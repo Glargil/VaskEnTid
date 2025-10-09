@@ -51,7 +51,7 @@ namespace VaskEnTid.Pages
             }
             if (!string.IsNullOrWhiteSpace(BookingIDFilter))
             {
-                filtered = filtered.Where(x => x.Booking.BookingID.ToString().Contains(BookingIDFilter));
+                filtered = filtered.Where(x => x.Booking.BookingID.ToString() == BookingIDFilter);
             }
 
             Bookings = filtered.Select(x => x.Booking).ToList();

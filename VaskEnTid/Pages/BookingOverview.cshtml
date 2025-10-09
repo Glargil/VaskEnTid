@@ -24,18 +24,5 @@
 				</div>
 			}
 		</div>
-		<div class="container">
-			@foreach (var booking in Model.Bookings)
-			{
-				var tenant = Model.Tenants.FirstOrDefault(t => t.TenantID == booking.TenantID);
-				<div class="card card-body" style="padding: 1em; margin-bottom: 1em;">
-					<h3 class="card-title">BookingID: @booking.BookingID</h3>
-					<p class="card-text">Tenant Name: @(tenant != null ? tenant.Name : "Unknown")</p>
-					<p class="card-text">TenantID: @booking.TenantID</p>
-					<p class="card-text">Date: @booking.BookingDate</p>
-					<p class="card-text">Start time: @booking.StartSlot:00</p>
-				</div>
-			}
-		</div>
 	</body>
 }
