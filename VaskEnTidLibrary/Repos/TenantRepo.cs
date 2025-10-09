@@ -87,7 +87,7 @@ namespace VaskEnTidLibrary.Repos
             try
             {
                 {
-                    var command = new Microsoft.Data.SqlClient.SqlCommand("SELECT TenantID, Phone, Email, Address FROM Tenant", connection);
+                    var command = new Microsoft.Data.SqlClient.SqlCommand("SELECT TenantID, Name, Phone, Email, Address FROM Tenant", connection);
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
@@ -95,6 +95,7 @@ namespace VaskEnTidLibrary.Repos
                         {
                             var tenant = new Models.Tenant
                             {
+                                Name = (string)reader["Name"],
                                 TenantID = (int)reader["TenantID"],
                                 Phone = (string)reader["Phone"],
                                 Email = (string)reader["Email"],
