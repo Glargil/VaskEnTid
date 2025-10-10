@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaskEnTidLibrary", "VaskEnT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{61D9FF46-2AFA-4EE5-B298-1DE2633C021B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaskEnTidLibraryTests", "VaskEnTidLibraryTests\VaskEnTidLibraryTests.csproj", "{92927F49-CEF6-4C23-A8AE-A28A7B1B57BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{61D9FF46-2AFA-4EE5-B298-1DE2633C021B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D9FF46-2AFA-4EE5-B298-1DE2633C021B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D9FF46-2AFA-4EE5-B298-1DE2633C021B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92927F49-CEF6-4C23-A8AE-A28A7B1B57BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92927F49-CEF6-4C23-A8AE-A28A7B1B57BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92927F49-CEF6-4C23-A8AE-A28A7B1B57BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92927F49-CEF6-4C23-A8AE-A28A7B1B57BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
