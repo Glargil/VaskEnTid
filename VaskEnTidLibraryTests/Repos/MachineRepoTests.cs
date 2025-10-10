@@ -31,16 +31,16 @@ namespace VaskEnTidLibrary.Repos.Tests
                 new Roller(8),
                 new Roller(9),
             };
-            foreach (Machine expectedMachine in expectedMachines)
-            { Debug.WriteLine($"Id: {expectedMachine.MachineID}, Type: {expectedMachine.Type}"); }
-
+          
             //Act
             List<Machine> actMachines = repo.GetAllMachines();
-            foreach (Machine actMachine in actMachines)
-            { Debug.WriteLine($"Id: {actMachine.MachineID}, Type: {actMachine.Type}"); }
 
             //Assert
-            Assert.AreEqual(expectedMachines, actMachines);
+            for(int i = 0; i < expectedMachines.Count; i++)
+            {
+                Assert.AreEqual(expectedMachines[i].MachineID, actMachines[i].MachineID);
+                Assert.AreEqual(expectedMachines[i].Type, actMachines[i].Type);
+            }
         }
 
         [TestMethod()]
