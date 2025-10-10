@@ -44,6 +44,7 @@ namespace Testing
             //    BookingDate = DateTime.Today,
             //    StartSlot = Booking.LaundrySlot.Slot18
             //});
+            //Constrant error in booking table -> tried to apply contraint to disallow the creation of bookings on pasts dates
         }
     }
 }
